@@ -18,4 +18,15 @@
     <facebook:config app-id="${spring.social.facebook.appId}"
                      app-secret="${spring.social.facebook.appSecret}"
                      app-namespace="socialShowcase"/>
+
+    <bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+        <property name="connectionFactories">
+            <list>
+                <bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+                    <constructor-arg value="${spring.social.facebook.appId}" />
+                    <constructor-arg value="${spring.social.facebook.appSecret}" />
+                </bean>
+            </list>
+        </property>
+    </bean>
 </beans>

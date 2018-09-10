@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -5,7 +6,7 @@
 </head>
 <body>
 <h2>Oauth with Facebook</h2>
-<form action="/connect/facebook" method="post">
+<form action="<c:url value="/connect/facebook"/>" method="post">
     <input type="hidden" name="scope" value="read_stream"/>
     <p>
         <button type="submit">Login With Facebook</button>
