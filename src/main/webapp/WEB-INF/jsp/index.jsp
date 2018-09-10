@@ -5,11 +5,20 @@
     <title>Welcome Servlet</title>
 </head>
 <body>
-<h2>Oauth with Facebook</h2>
+<h2>Login with: </h2>
+<%--Facebook--%>
 <form action="<c:url value="/connect/facebook"/>" method="post">
     <input type="hidden" name="scope" value="read_stream"/>
     <p>
         <button type="submit">Login with Facebook</button>
+    </p>
+</form>
+
+<%--Google--%>
+<form action="<c:url value="/connect/google"/>" method="post">
+    <input type="hidden" name="scope" value="read_stream"/>
+    <p>
+        <button type="submit">Login with Google</button>
     </p>
 </form>
 </body>

@@ -18,6 +18,11 @@ public class LoginController {
         return facebookProvider.getFacebookUserData(model, new UserModel());
     }
 
+    @GetMapping("/google")
+    public String loginWithGoogle(Model model) {
+        return facebookProvider.getFacebookUserData(model, new UserModel());
+    }
+
     @GetMapping(value = {"/", "/login"})
     public String welcome() {
         return "index";

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/connect")
 public class ChangeFlowController extends ConnectController {
 
-    public ChangeFlowController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
+    public ChangeFlowController(ConnectionFactoryLocator connectionFactoryLocator,
+                                ConnectionRepository connectionRepository) {
         super(connectionFactoryLocator, connectionRepository);
     }
 
