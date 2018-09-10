@@ -9,7 +9,7 @@
 <form action="<c:url value="/connect/facebook"/>" method="post">
     <input type="hidden" name="scope" value="read_stream"/>
     <p>
-        <button type="submit">Login With Facebook</button>
+        <button type="submit">Login with Facebook</button>
     </p>
 </form>
 </body>
