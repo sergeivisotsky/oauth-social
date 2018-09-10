@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:facebook="http://www.springframework.org/schema/social/facebook"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/social/facebook http://www.springframework.org/schema/social/spring-social-facebook.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/social/facebook http://www.springframework.org/schema/social/spring-social-facebook.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.sergei.social"/>
@@ -15,16 +16,34 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--Authentication beans-->
     <facebook:config app-id="${spring.social.facebook.appId}"
                      app-secret="${spring.social.facebook.appSecret}"
                      app-namespace="socialShowcase"/>
 
+    <bean id="usersConnectionRepository"
+          class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+        <constructor-arg ref="dataSource"/>
+        <constructor-arg ref="connectionFactoryLocator"/>
+        <constructor-arg ref="textEncryptor"/>
+    </bean>
+
+    <bean id="connectionRepository" factory-method="createConnectionRepository"
+          factory-bean="usersConnectionRepository" scope="request">
+        <constructor-arg value="#{usersConnectionRepository.connectionSignUp.name}"/>
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+
+    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+          factory-method="noOpText"/>
+
     <bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
         <property name="connectionFactories">
             <list>
+                <!--Beans with the other socials go here-->
                 <bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
-                    <constructor-arg value="${spring.social.facebook.appId}" />
-                    <constructor-arg value="${spring.social.facebook.appSecret}" />
+                    <constructor-arg value="${spring.social.facebook.appId}"/>
+                    <constructor-arg value="${spring.social.facebook.appSecret}"/>
                 </bean>
             </list>
         </property>
