@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private FacebookProvider facebookProvider;
+    private final FacebookProvider facebookProvider;
+    private final GoogleProvider googleProvider;
 
     @Autowired
-    private GoogleProvider googleProvider;
+    public LoginController(FacebookProvider facebookProvider, GoogleProvider googleProvider) {
+        this.facebookProvider = facebookProvider;
+        this.googleProvider = googleProvider;
+    }
 
     @GetMapping("/facebook")
     public String loginWithFacebook(Model model) {
@@ -27,7 +30,7 @@ public class LoginController {
         return googleProvider.getGoogleUserData(model, new UserModel());
     }
 
-    @GetMapping(value = {"/", "/login"})
+    @GetMapping({"/", "/login"})
     public String welcome() {
         return "index";
     }
