@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Welcome Servlet</title>
+</head>
+<body>
+<h2>Login with: </h2>
+<!--Facebook-->
+<form th:action="@{/connect/facebook}" method="post">
+<input type="hidden" name="scope" value="read_stream"/>
+<p>
+    <button type="submit">Login with Facebook</button>
+</p>
+</form>
+
+<!--Google-->
+<form th:action="@{/connect/google}" method="post">
+<input type="hidden" name="scope" value="read_stream"/>
+<p>
+    <button type="submit">Login with Google</button>
+</p>
+</form>
+</body>
+</html>
