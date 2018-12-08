@@ -5,6 +5,7 @@ Authentication using social networks
 * Java 8
 * Spring Boot
 * Apache maven
+* Thymeleaf
 
 ## Functionality
 * See the page with button `Login with Facebook`
